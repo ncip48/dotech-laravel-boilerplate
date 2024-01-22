@@ -50,22 +50,22 @@
                 <form autocomplete="off" action="{{ route('login') }}" method="post" id="login-form">
                     <div class="mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Username" name="username">
-                            <div class="input-group-append">
+                            <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
                                 </div>
                             </div>
+                            <input type="text" class="form-control" placeholder="Username" name="username">
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="input-group">
-                            <input type="password" class="form-control" placeholder="Password" name="password">
-                            <div class="input-group-append">
+                            <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
                                 </div>
                             </div>
+                            <input type="password" class="form-control" placeholder="Password" name="password">
                         </div>
                     </div>
                     <div class="row">
@@ -132,15 +132,14 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        if (response.status == 'success') {
+                        if (response.success) {
                             toastr.success(response.message);
                             setTimeout(() => {
-                                window.location.href = response.redirect;
+                                window.location.href = response.data.redirect;
                             }, 1000);
                         } else {
                             toastr.error(response.message);
                         }
-
                         //enable button
                         form.find('button').prop('disabled', false);
                         //remove loading spinner
@@ -155,20 +154,6 @@
                         toastr.error(xhr.responseJSON.message, );
                     }
                 })
-            })
-        })
-
-        // onsubmit form
-
-
-        window.addEventListener('alert', event => {
-            const {
-                type,
-                message
-            } = event.detail[0]
-            Toast.fire({
-                icon: type,
-                title: message
             })
         })
     </script>

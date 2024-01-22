@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('menu_id');
             $table->string('code');
             $table->string('name');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->integer('level');
             $table->integer('order');
             $table->integer('parent_id')->nullable();

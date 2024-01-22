@@ -19,6 +19,13 @@ Auth::routes();
 
 //middleware auth
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 });
+
+//boilerplate routes
+
+Route::resource('dashboard', App\Http\Controllers\DashboardController::class);
+
+Route::resource('setting/group', App\Http\Controllers\Setting\GroupController::class);
+Route::resource('setting/menu', App\Http\Controllers\Setting\MenuController::class);
