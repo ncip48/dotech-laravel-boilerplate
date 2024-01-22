@@ -44,7 +44,7 @@ class MenuSeeder extends Seeder
                 'order' => 1,
                 'parent_id' => 2,
                 'tag' => 'master-user',
-                'icon' => 'fas fa-minus',
+                'icon' => 'far fa-circle',
                 'is_active' => true,
             ],
             [
@@ -66,7 +66,7 @@ class MenuSeeder extends Seeder
                 'order' => 1,
                 'parent_id' => 4,
                 'tag' => 'setting-group',
-                'icon' => 'fas fa-minus',
+                'icon' => 'far fa-circle',
                 'is_active' => true,
             ],
             [
@@ -77,7 +77,7 @@ class MenuSeeder extends Seeder
                 'order' => 2,
                 'parent_id' => 4,
                 'tag' => 'setting-menu',
-                'icon' => 'fas fa-minus',
+                'icon' => 'far fa-circle',
                 'is_active' => true,
             ]
         ]);

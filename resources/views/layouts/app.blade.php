@@ -119,7 +119,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
 
-                        {!! MenuHelper::generateMenu($menus) !!}
+                        {!! MenuHelper::generateMenu() !!}
 
                         <form action="{{ route('logout') }}" id="logout" method="POST">
                             @csrf

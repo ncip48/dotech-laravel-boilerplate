@@ -10,6 +10,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    protected $menu;
+    protected $url;
+    protected $title;
+    protected $view;
+
     public function setResponse($status, $message, $data = null)
     {
         return response()->json([

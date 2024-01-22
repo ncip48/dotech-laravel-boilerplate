@@ -2,12 +2,20 @@
 
 namespace App\Helpers;
 
+use App\Models\Setting\Menu;
 use Illuminate\Support\Facades\Route;
 
 class MenuHelper
 {
-    public static function generateMenu($menus, $parentId = null)
+    public static function generateMenu($menus = null, $parentId = null)
     {
+        $group_id = auth()->user()->group_id;
+        $menus = Menu::join('group_menus', 'menus.menu_id', '=', 'group_menus.menu_id')
+            ->where('group_menus.group_id', $group_id)
+            ->orderBy('menus.order', 'asc')
+            ->get()
+            ->toArray();
+
         $menuHtml = '';
 
         foreach ($menus as $menu) {

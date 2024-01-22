@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->menu = "DASHBOARD";
+        $this->url = url('/dashboard');
+        $this->title = "Dashboard";
+        $this->view = "dashboard.";
+    }
+
     public function index()
     {
-        $menus = Menu::all();
-        return view('dashboard.index')->with('menus', $menus);
+        return view('dashboard.index')->with('title', $this->title)
+            ->with('url', $this->url);
     }
 }
