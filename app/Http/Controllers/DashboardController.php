@@ -17,7 +17,11 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $breadcrumbs = [
+            ['url' => $this->url, 'title' => $this->title],
+        ];
         return view('dashboard.index')->with('title', $this->title)
-            ->with('url', $this->url);
+            ->with('url', $this->url)
+            ->with('breadcrumbs', $breadcrumbs);
     }
 }
