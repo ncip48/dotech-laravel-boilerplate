@@ -9,18 +9,21 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->menu = "DASHBOARD";
-        $this->url = url('/dashboard');
-        $this->title = "Dashboard";
-        $this->view = "dashboard.";
+        $this->menu = "MASTER.USER";
+        $this->url = url('master/user');
+        $this->title = "User";
+        $this->view = "master.user.";
     }
 
     public function index()
     {
         $breadcrumbs = [
+            ['url' => url('/dashboard'), 'title' => 'Dashboard'],
+            ["url" => "#", "title" => "Master"],
             ['url' => $this->url, 'title' => $this->title],
         ];
-        return view('dashboard.index')->with('title', $this->title)
+
+        return view($this->view . 'index')->with('title', $this->title)
             ->with('url', $this->url)
             ->with('breadcrumbs', $breadcrumbs);
     }
