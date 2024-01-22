@@ -19,6 +19,11 @@ class Controller extends BaseController
     protected $view;
     protected $actionResponse;
 
+    public function showError($message)
+    {
+        return $this->setResponse(false, $message);
+    }
+
     public function setResponse($status, $message, $data = null)
     {
         return response()->json([
@@ -77,10 +82,10 @@ class Controller extends BaseController
         if (!isset($userAccess[strtoupper($this->menu)][$this->action]) or $userAccess[strtoupper($this->menu)][$this->action] != 1) {
             switch (strtolower($this->actionResponse)) {
                 case 'json':
-                    return $this->setResponse(false, 'You are not authorized to access this page.');
+                    return $this->setResponse(false, 'You are not authorized to perform this action.');
                     break;
                 default:
-                    return $this->setResponse(false, 'You are not authorized to access this page.');
+                    return $this->setResponse(false, 'You are not authorized to perform this action.');
                     break;
             }
         }

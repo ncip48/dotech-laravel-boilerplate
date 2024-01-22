@@ -18,18 +18,25 @@ $is_edit = isset($data);
                 <div class="form-message text-center"></div>
 
                 <div class="form-group required row mb-2">
-                    <label class="col-sm-3 control-label col-form-label">Jurusan</label>
+                    <label class="col-sm-3 control-label col-form-label">Username</label>
                     <div class="col-sm-9">
                         <input @if ($is_edit) disabled @endif type="text"
-                            class="form-control form-control-sm" id="jurusan_code" name="jurusan_code"
-                            value="{{ isset($data->jurusan_code) ? $data->jurusan_code : '' }}" />
+                            class="form-control form-control-sm" id="username" name="username"
+                            value="{{ isset($data->username) ? $data->username : '' }}" />
                     </div>
                 </div>
                 <div class="form-group required row mb-2">
-                    <label class="col-sm-3 control-label col-form-label">Keterangan</label>
+                    <label class="col-sm-3 control-label col-form-label">Nama</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" id="jurusan_name" name="jurusan_name"
-                            value="{{ isset($data->jurusan_name) ? $data->jurusan_name : '' }}" />
+                        <input type="text" class="form-control form-control-sm" id="name" name="name"
+                            value="{{ isset($data->name) ? $data->name : '' }}" />
+                    </div>
+                </div>
+                <div class="form-group required row mb-2">
+                    <label class="col-sm-3 control-label col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control form-control-sm" id="email" name="email"
+                            value="{{ isset($data->email) ? $data->email : '' }}" />
                     </div>
                 </div>
             </div>

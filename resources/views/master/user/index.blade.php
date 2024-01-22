@@ -121,18 +121,18 @@
                         "bSearchable": true
                     },
                     {
-                        "mData": "email",
-                        "sClass": "",
-                        "sWidth": "10%",
-                        "bSortable": false,
-                        "bSearchable": true
-                    },
-                    {
                         "mData": "name",
                         "sClass": "",
                         "sWidth": "10%",
                         "bSortable": false,
                         "bSearchable": true,
+                    },
+                    {
+                        "mData": "email",
+                        "sClass": "",
+                        "sWidth": "10%",
+                        "bSortable": false,
+                        "bSearchable": true
                     }, {
                         "mData": "group.name",
                         "sClass": "",

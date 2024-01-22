@@ -48,12 +48,27 @@ class UserController extends Controller
 
     public function create()
     {
-        $this->authAction('create', 'modal');
+        $this->authAction('create');
         if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
         return view($this->view . 'action')
             ->with('title', 'Tambah ' . $this->title)
             ->with('url', $this->url);
+    }
+
+    public function edit($id)
+    {
+        $this->authAction('update',);
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $data = User::find($id);
+
+        return (!$data) ? $this->showError("No data found with id: $id") :
+            view($this->view . 'action')
+            ->with('url', $this->url . '/' . $id)
+            ->with('title', 'Edit ' . $this->title)
+            ->with('id', $id)
+            ->with('data', $data);
     }
 
     public function show($id)
