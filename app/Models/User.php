@@ -50,4 +50,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Setting\Group', 'group_id', 'group_id');
+    }
 }

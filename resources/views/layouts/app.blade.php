@@ -96,9 +96,12 @@
                     <div class="image">
                         <img src="{{ asset('dist/img/user.png') }}" class="img-circle" alt="User Image">
                     </div>
-                    <div class="info" style="text-wrap:wrap">
+                    <div class="info align-text-center" style="text-wrap:wrap">
                         <a class="d-block">{{ Auth::user()->name }}
                     </div>
+                    <a href="{{ route('profile') }}" class="ml-2">
+                        <i class="fas fa-cog"></i>
+                    </a>
                 </div>
 
                 {{-- <!-- SidebarSearch Form -->

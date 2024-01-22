@@ -21,9 +21,14 @@ Auth::routes();
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('profile', [App\Http\Controllers\DashboardController::class, 'index'])->name('profile');
+
     //boilerplate routes
 
     Route::resource('setting/group', App\Http\Controllers\Setting\GroupController::class);
     Route::resource('setting/menu', App\Http\Controllers\Setting\MenuController::class);
-    Route::resource('master/user', App\Http\Controllers\Master\UserController::class);
+
+    //user
+    Route::resource('master/user', App\Http\Controllers\Master\UserController::class)->parameter('user', 'id');
+    Route::post('master/user/list', [App\Http\Controllers\Master\UserController::class, 'list'])->name('master.user.list');
 });
