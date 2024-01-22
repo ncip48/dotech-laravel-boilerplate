@@ -12,10 +12,12 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    private $action = "";
     protected $menu;
     protected $url;
     protected $title;
     protected $view;
+    protected $actionResponse;
 
     public function setResponse($status, $message, $data = null)
     {
@@ -46,6 +48,43 @@ class Controller extends BaseController
         }
 
         return $data;
+    }
+
+    protected function authAction(string $action = 'read', string $action_response = 'default'): void
+    {
+        switch (strtolower($action)) {
+            case 'create':
+                $this->action = 'create';
+                break;
+            case 'update':
+                $this->action = 'update';
+                break;
+            case 'delete':
+                $this->action = 'delete';
+                break;
+            case 'read':
+            default:
+                $this->action = 'read';
+                break;
+        };
+
+        $this->actionResponse = $action_response;
+    }
+
+    protected function authCheckDetailAccess()
+    {
+        $userAccess = $this->getUserAccess();
+        if (!isset($userAccess[strtoupper($this->menu)][$this->action]) or $userAccess[strtoupper($this->menu)][$this->action] != 1) {
+            switch (strtolower($this->actionResponse)) {
+                case 'json':
+                    return $this->setResponse(false, 'You are not authorized to access this page.');
+                    break;
+                default:
+                    return $this->setResponse(false, 'You are not authorized to access this page.');
+                    break;
+            }
+        }
+        return true;
     }
 
     public function authAccess()

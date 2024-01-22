@@ -196,6 +196,9 @@
 
     @stack('scripts')
 
+    <div id="ajax-modal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static"
+        data-keyboard="false" data-width="75%" aria-hidden="true" data-close-on-escape="true"></div>
+
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -226,6 +229,45 @@
         this.addEventListener('pondReset', e => {
             // console.log(FilePond.destroy(document.querySelector('input[name="filepond"]')))
             FilePond.destroy(document.querySelector('input[name="filepond"]'))
+        });
+    </script>
+
+    <script>
+        var $modal = $('#ajax-modal');
+
+        function isJSON(str) {
+            if (typeof str == 'string') {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        $('body').on('click', '.ajax_modal', function(ev) {
+            ev.preventDefault();
+            let u = $(this).data('url');
+
+            //fetch with ajax
+            $.ajax({
+                url: u,
+                type: 'GET',
+                success: function(response) {
+                    if (!isJSON(response)) {
+                        $modal.html(response);
+                        $modal.modal('show');
+                    } else {
+                        toastr.error(response?.message);
+                    }
+
+                    // if (!response.success) return toastr.error(response?.message);
+
+                    // setTimeout(function() {
+                    //     $modal.load(u, function() {
+                    //         $modal.modal('show');
+                    //     });
+                    // }, 10);
+                }
+            });
         });
     </script>
 

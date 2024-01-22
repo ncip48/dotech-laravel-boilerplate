@@ -19,6 +19,9 @@ class UserController extends Controller
 
     public function index()
     {
+        $this->authAction('read');
+        $this->authCheckDetailAccess();
+
         $breadcrumbs = [
             ['url' => url('/dashboard'), 'title' => 'Home'],
             ["url" => "#", "title" => "Master"],
@@ -33,11 +36,24 @@ class UserController extends Controller
 
     public function list()
     {
+        $this->authAction('read', 'json');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
         $data = User::with('group')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function create()
+    {
+        $this->authAction('create', 'modal');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        return view($this->view . 'action')
+            ->with('title', 'Tambah ' . $this->title)
+            ->with('url', $this->url);
     }
 
     public function show($id)

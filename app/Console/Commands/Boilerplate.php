@@ -61,7 +61,7 @@ class Boilerplate extends Command
             'name' => $name_view . '/index',
         ]);
         $this->call('make:view', [
-            'name' => $name_view . '/create',
+            'name' => $name_view . '/action',
         ]);
         $this->call('make:view', [
             'name' => $name_view . '/detail',
