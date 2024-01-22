@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') - IMSS</title>
+    <title>{{ env('APP_NAME') }} | @yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -20,25 +20,20 @@
     <!-- Themestyle -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
-
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
         rel="stylesheet">
-
-    @stack('styles')
-
-    @livewireStyles
+    <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
+        {{-- <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__wobble" src="https://imsservice.co.id/assets/inka-border.png" alt="AdminLTELogo"
                 height="60">
-        </div>
+        </div> --}}
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-dark">
@@ -89,8 +84,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('dashboard') }}" class="brand-link d-flex">
-                <img src="https://imsservice.co.id/assets/inka-border.png" alt="AdminLTE Logo"
-                    class="brand-image mx-auto d-block" style="opacity: .8">
+                <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
             <!-- Sidebar -->
@@ -101,10 +97,7 @@
                         <img src="dist/img/user.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="info" style="text-wrap:wrap">
-                        @auth
-                            $group = Auth::user()->group;
-                        @endauth
-                        <a class="d-block">{{ Auth::user()->name }} - {{ $divisi->nama }}</a>
+                        <a class="d-block">{{ Auth::user()->name }}
                     </div>
                 </div>
 
@@ -202,7 +195,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 
@@ -222,47 +215,6 @@
                 "info": true,
                 "autoWidth": false,
             });
-        });
-    </script>
-
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            showCloseButton: true,
-            timer: 4000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
-        window.addEventListener('alert', event => {
-            const {
-                type,
-                message
-            } = event.detail[0]
-            Toast.fire({
-                icon: type,
-                title: message
-            })
-        })
-    </script>
-
-    <script>
-        document.addEventListener('livewire:available', function() {
-            window.livewire.on('fileChoosen', () => {
-                let inputField = document.getElementById('file')
-                let file = inputField.files[0]
-                let reader = new FileReader();
-                reader.onloadend = () => {
-                    Livewire.emit('fileUpload', reader.result)
-                    console.log(reader.result)
-                }
-                reader.readAsDataURL(file);
-            })
         });
     </script>
 
