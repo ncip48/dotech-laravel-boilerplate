@@ -27,3 +27,4 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 Route::resource('setting/group', App\Http\Controllers\Setting\GroupController::class);
 Route::resource('setting/menu', App\Http\Controllers\Setting\MenuController::class);
+Route::resource('master/user', App\Http\Controllers\Master\UserController::class);
