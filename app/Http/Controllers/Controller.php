@@ -18,4 +18,9 @@ class Controller extends BaseController
             'data' => $data
         ], 200);
     }
+
+    public function getMenu()
+    {
+        return "ok";
+    }
 }
