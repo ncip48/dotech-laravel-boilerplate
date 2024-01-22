@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $breadcrumbs = [
-            ['url' => url('/dashboard'), 'title' => 'Dashboard'],
+            ['url' => url('/dashboard'), 'title' => 'Home'],
             ["url" => "#", "title" => "Master"],
             ['url' => $this->url, 'title' => $this->title],
         ];

@@ -18,6 +18,7 @@ class DashboardController extends Controller
     public function index()
     {
         $breadcrumbs = [
+            ["url" => "#", 'title' => "Home"],
             ['url' => $this->url, 'title' => $this->title],
         ];
 

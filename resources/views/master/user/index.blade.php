@@ -14,8 +14,17 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             @foreach ($breadcrumbs as $breadcrumb)
-                                <li class="breadcrumb-item">
-                                    <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a>
+                                {{-- check active by comparing the URL from $breadcrumb['url'] with the current URL --}}
+                                @php
+                                    $isActive = url()->current() == $breadcrumb['url'];
+                                @endphp
+
+                                <li class="breadcrumb-item {{ $isActive ? 'active' : '' }}">
+                                    @if ($isActive)
+                                        {{ $breadcrumb['title'] }}
+                                    @else
+                                        <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a>
+                                    @endif
                                 </li>
                             @endforeach
                         </ol>
