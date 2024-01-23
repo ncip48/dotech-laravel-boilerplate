@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,29 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     //user
     Route::resource('master/user', App\Http\Controllers\Master\UserController::class)->parameter('user', 'id');
     Route::post('master/user/list', [App\Http\Controllers\Master\UserController::class, 'list'])->name('master.user.list');
+});
+
+
+//cache clear
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
+
+// Clear route cache:
+Route::get('/route-cache', function () {
+    Artisan::call('route:cache');
+    return "Routes are cached";
+});
+
+//Clear config cache:
+Route::get('/config-cache', function () {
+    Artisan::call('config:cache');
+    return "Configurations are cached";
+});
+
+// Clear view cache:
+Route::get('/view-clear', function () {
+    Artisan::call('view:clear');
+    return "View cache is cleared";
 });
