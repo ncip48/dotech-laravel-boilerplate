@@ -152,7 +152,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; {{ now()->year }} <a href="https://imsservice.co.id/">PT. IMSS</a></strong>
+            <strong>Copyright &copy; {{ now()->year }} <a href="https://dotech.cfd/">Dotech Digital</a></strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 Template by AdminLTE <b>Version</b> 3.2.0
