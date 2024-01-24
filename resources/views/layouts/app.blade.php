@@ -24,6 +24,7 @@
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/icheck.css') }}">
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -243,6 +244,30 @@
             }
         }
 
+        function resetForm(el, exc) {
+            exc = (typeof exc != 'undefined') ? exc : '';
+            $('.select2, .selectbox', el).not(exc).val("").trigger("change");
+            $(':input', el).not(':button, :submit, :reset, :radio' + ((exc.length > 0) ? ',' + exc : '')).val('').prop(
+                'selected', false);
+            $('label.custom-file-label').text('');
+        }
+
+        function closeModal(mdl, dt = {}) {
+            if (dt.hasOwnProperty('success')) {
+                if (dt.success) {
+                    setTimeout(function() {
+                        $modal.modal('hide');
+                    }, 1000);
+                }
+            } else {
+                if (mdl) {
+                    setTimeout(function() {
+                        $(mdl).modal('toggle');
+                    }, 1000);
+                }
+            }
+        }
+
         $('body').on('click', '.ajax_modal', function(ev) {
             ev.preventDefault();
             let u = $(this).data('url');
@@ -258,21 +283,74 @@
                     } else {
                         toastr.error(response?.message);
                     }
-
-                    // if (!response.success) return toastr.error(response?.message);
-
-                    // setTimeout(function() {
-                    //     $modal.load(u, function() {
-                    //         $modal.modal('show');
-                    //     });
-                    // }, 10);
                 }
             });
         });
     </script>
 
+    <script>
+        function getError(data) {
+            if (data.hasOwnProperty('success')) {
+                if (!data.success) {
+                    if (data?.message?.toLowerCase().includes('validation')) {
+                        const datas = data?.data;
+                        for (const key in datas) {
+                            if (datas.hasOwnProperty(key)) {
+                                const element = datas[key];
+                                toastr.error(element);
+                            }
+                        }
+                    } else {
+                        toastr.error(data.message);
+                    }
+                }
+            } else {
+                toastr.error(data.message);
+            }
+        }
 
-    @livewireScripts
+        function showLoadingButton() {
+            $('#btn-save').attr('disabled', true);
+            $('#btn-save').html('<i class="fa fa-spinner fa-spin"></i>');
+        }
+
+        function hideLoadingButton() {
+            $('#btn-save').attr('disabled', false);
+            $('#btn-save').html('Save');
+        }
+
+        //#main-form on submit
+        $(document).on('submit', '#main-form', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            var method = form.attr('method');
+            var data = form.serialize();
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: data,
+                dataType: 'json',
+                beforeSend: function() {
+                    showLoadingButton();
+                },
+                success: function(data) {
+                    // unblockUI(form);
+                    // setFormMessage('.form-message', data);
+                    hideLoadingButton();
+                    if (data.success) {
+                        resetForm('#form-master');
+                        dataMaster.draw(false);
+                        toastr.success(data.message);
+                    } else {
+                        getError(data)
+                    }
+                    closeModal($modal, data);
+                }
+            });
+        });
+    </script>
 
 </body>
 

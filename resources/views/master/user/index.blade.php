@@ -48,7 +48,7 @@
                                         <button type="button" data-block="body"
                                             class="btn btn-sm btn-primary mt-1 ajax_modal"
                                             data-url="{{ $url }}/create"><i class="fas fa-plus"></i>
-                                            Tambah</button>
+                                            Add</button>
                                     @endif
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                                 <th>Email</th>
                                                 <th>Role</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -165,7 +165,7 @@
                             @endif
                             @if ($allowAccess->delete)
                                 +
-                                `<a href="#" data-block="body" data-url="{{ $url }}/${data}/delete" class="ajax_modal btn btn-xs btn-danger tooltips text-light" data-placement="left" data-original-title="Hapus Data" ><i class="fa fa-trash"></i></a> `
+                                `<a href="#" data-block="body" data-url="{{ $url }}/${data}/delete" class="ajax_modal btn btn-xs btn-danger tooltips text-light" data-placement="left" data-original-title="Delete Data" ><i class="fa fa-trash"></i></a> `
                             @endif ;
                         }
                     }

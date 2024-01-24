@@ -32,6 +32,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     //user
     Route::resource('master/user', App\Http\Controllers\Master\UserController::class)->parameter('user', 'id');
     Route::post('master/user/list', [App\Http\Controllers\Master\UserController::class, 'list'])->name('master.user.list');
+    Route::get('master/user/{id}/delete', [App\Http\Controllers\Master\UserController::class, 'confirm'])->name('master.user.confirm');
 });
 
 
