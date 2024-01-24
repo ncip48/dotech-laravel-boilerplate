@@ -144,6 +144,40 @@ class NewsController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $breadcrumbs = [
+            ['url' => url('/dashboard'), 'title' => 'Home'],
+            ["url" => "#", "title" => "Master"],
+            ['url' => $this->url, 'title' => $this->title],
+            ['url' => '#', 'title' => 'Detail'],
+        ];
+
+        $data = News::with('user')->findOrFail($id);
+
+        return view($this->view . 'show')->with('title', $this->title)
+            ->with('url', $this->url)
+            ->with('breadcrumbs', $breadcrumbs)
+            ->with('data', $data);
+    }
+
+    public function confirm($id)
+    {
+        $this->authAction('delete');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $data = News::find($id);
+
+        return (!$data) ? $this->showError("No data found with id: $id") :
+            view('layouts.modal_delete')
+            ->with('url', $this->url . '/' . $id)
+            ->with('title', 'Delete ' . $this->title)
+            ->with('id', $id)
+            ->with('data', $data)
+            ->with('action', 'delete')
+            ->with('info', ["Title" => "$data->title"]);
+    }
+
     public function destroy($id)
     {
         $this->authAction('delete');
