@@ -86,8 +86,6 @@ class UserController extends Controller
                 'password' => 'required|min:8',
             ];
 
-
-
             $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
