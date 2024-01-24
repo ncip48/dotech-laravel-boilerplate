@@ -83,7 +83,7 @@ class NewsController extends Controller
         }
 
         $data = $request->all();
-        $data['slug'] = Str::slug($request->slug);
+        $data['slug'] = Str::slug($request->title);
 
         $news = News::create($data);
 
@@ -155,8 +155,17 @@ class NewsController extends Controller
 
         $data = News::with('user')->findOrFail($id);
 
+        $data = [
+            "Creator" => $data->user->name ?? "-",
+            "Slug" => $data->slug ?? "-",
+            "Title" => $data->title ?? "-",
+            "Content" => $data->content ?? "-",
+            "Image" => $data->image ?? "-",
+        ];
+
         return view($this->view . 'detail')->with('title', $this->title)
             ->with('url', $this->url)
+            ->with('title', 'Detail ' . $this->title)
             ->with('breadcrumbs', $breadcrumbs)
             ->with('data', $data);
     }
