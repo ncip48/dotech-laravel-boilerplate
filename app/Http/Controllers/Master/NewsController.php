@@ -155,7 +155,7 @@ class NewsController extends Controller
 
         $data = News::with('user')->findOrFail($id);
 
-        return view($this->view . 'show')->with('title', $this->title)
+        return view($this->view . 'detail')->with('title', $this->title)
             ->with('url', $this->url)
             ->with('breadcrumbs', $breadcrumbs)
             ->with('data', $data);
