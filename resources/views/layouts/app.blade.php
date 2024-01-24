@@ -341,8 +341,8 @@
                     hideLoadingButton();
                     if (data.success) {
                         resetForm('#form-master');
-                        dataMaster.draw(false);
                         toastr.success(data.message);
+                        dataMaster.draw(false);
                     } else {
                         getError(data)
                     }

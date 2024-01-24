@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -69,13 +70,23 @@ class UserController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
 
+
             $rules = [
-                'username' => 'required|unique:users,username',
+                'username' => [
+                    'required',
+                    Rule::unique('users', 'username'),
+                ],
                 'group_id' => 'required',
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('users', 'email'),
+                ],
                 'password' => 'required|min:8',
             ];
+
+
 
             $validator = Validator::make($request->all(), $rules);
 
@@ -87,14 +98,19 @@ class UserController extends Controller
                 return $this->setResponse(false, "Validation Error", $errors);
             }
 
-            $res = User::create([
-                'username' => $request->username,
-                'group_id' => $request->group_id,
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                "is_active" => $request->is_active ?? "0",
-            ]);
+            try {
+                $res = User::create([
+                    'username' => $request->username,
+                    'group_id' => $request->group_id,
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    "is_active" => $request->is_active ?? "0",
+                ]);
+            } catch (\Throwable $th) {
+                dd($th);
+                return $this->setResponse(false, $th->getMessage());
+            }
 
             return $this->setResponse(true, $this->saveSuccessMessage, $res);
         }
