@@ -38,6 +38,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('master/news', App\Http\Controllers\Master\NewsController::class);
     Route::post('master/news/list', [App\Http\Controllers\Master\NewsController::class, 'list'])->name('master.news.list');
     Route::get('master/news/{id}/delete', [App\Http\Controllers\Master\NewsController::class, 'confirm'])->name('master.news.confirm');
+
+    Route::resource('news', App\Http\Controllers\NewsController::class);
+    Route::post('news/list', [App\Http\Controllers\NewsController::class, 'list'])->name('master.news.list');
 });
 
 
