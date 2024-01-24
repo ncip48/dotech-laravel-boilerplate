@@ -96,7 +96,7 @@ class UserController extends Controller
                 "is_active" => $request->is_active ?? "0",
             ]);
 
-            return $this->setResponse(true, "Data has been saved", $res);
+            return $this->setResponse(true, $this->saveSuccessMessage, $res);
         }
 
         return redirect('/');
@@ -158,7 +158,7 @@ class UserController extends Controller
                 "is_active" => $request->is_active ?? "0",
             ]);
 
-            return $this->setResponse(true, "Data has been updated", $res);
+            return $this->setResponse(true, $this->updateSuccessMessage, $res);
         }
 
         return redirect('/');
@@ -179,5 +179,33 @@ class UserController extends Controller
             ->with('url', $this->url)
             ->with('breadcrumbs', $breadcrumbs)
             ->with('data', $data);
+    }
+
+    public function confirm($id)
+    {
+        $this->authAction('delete');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $data = User::find($id);
+
+        return (!$data) ? $this->showError("No data found with id: $id") :
+            view('layouts.modal_delete')
+            ->with('url', $this->url . '/' . $id)
+            ->with('title', 'Delete ' . $this->title)
+            ->with('id', $id)
+            ->with('data', $data)
+            ->with('action', 'delete')
+            ->with('info', ["Name" => "$data->name", "Username" => "$data->username", "Email" => "$data->email"]);
+    }
+
+    public function destroy($id)
+    {
+        $this->authAction('delete');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $res = User::destroy($id);
+
+        return (!$res) ? $this->showError("No data found with id: $id") :
+            $this->setResponse(true, $this->deleteSuccessMessage, $res);
     }
 }

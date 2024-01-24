@@ -19,6 +19,13 @@ class Controller extends BaseController
     protected $view;
     protected $actionResponse;
 
+    protected $saveSuccessMessage = "Data has been saved successfully.";
+    protected $updateSuccessMessage = "Data has been updated successfully.";
+    protected $deleteSuccessMessage = "Data has been deleted successfully.";
+    protected $saveFailedMessage = "Data failed to save.";
+    protected $updateFailedMessage = "Data failed to update.";
+    protected $deleteFailedMessage = "Data failed to delete.";
+
     public function showError($message)
     {
         return $this->setResponse(false, $message);
