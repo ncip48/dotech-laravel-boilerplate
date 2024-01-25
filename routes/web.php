@@ -46,6 +46,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 //run artisan command: php artisan optimize
 Route::get('/optimize', function () {
-    Artisan::call('optimize');
+    Artisan::call('optimize:clear');
     return "Optimized";
 });
