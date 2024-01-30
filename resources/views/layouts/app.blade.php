@@ -25,6 +25,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/icheck.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('dist/iconpicker-1.5.0.css') }}" />
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -194,6 +196,23 @@
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
+    <script src="{{ asset('dist/iconpicker-1.5.0.js') }}"></script>
+
+    <script>
+        // Default options
+        // IconPicker.Init({
+        //     // Required: You have to set the path of IconPicker JSON file to "jsonUrl" option. e.g. '/content/plugins/IconPicker/dist/iconpicker-1.5.0.json'
+        //     jsonUrl: null,
+        //     // Optional: Change the buttons or search placeholder text according to the language.
+        //     searchPlaceholder: 'Search Icon',
+        //     showAllButton: 'Show All',
+        //     cancelButton: 'Cancel',
+        //     noResultsFound: 'No results found.', // v1.5.0 and the next versions
+        //     borderRadius: '20px', // v1.5.0 and the next versions
+        // });
+
+        // $('.icon').iconpicker();
+    </script>
 
     @stack('scripts')
 
@@ -318,6 +337,11 @@
             $('#btn-save').attr('disabled', false);
             $('#btn-save').html('Save');
         }
+
+        //#GetIconPicker on click
+        // $(document).on('click', '#GetIconPicker', function(e) {
+        //     // alert('ok')
+        // })
 
         //#main-form on submit
         $(document).on('submit', '#main-form', function(e) {

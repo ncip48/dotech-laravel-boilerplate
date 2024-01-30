@@ -1,4 +1,4 @@
-<form method="post" action="{{ $url }}" role="form" class="form-horizontal" id="main-form">
+<form method="post" action="{{ $url }}" role="form" class="form-horizontal" id="main-form" autocomplete="off">
     @csrf
     {!! method_field('PUT') !!}
     <div id="modal-group" class="modal-dialog modal-lg" role="document">
