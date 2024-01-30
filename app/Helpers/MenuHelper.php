@@ -13,6 +13,7 @@ class MenuHelper
         $menus = Menu::join('group_menus', 'menus.menu_id', '=', 'group_menus.menu_id')
             ->where('group_menus.group_id', $group_id)
             ->whereNull('group_menus.deleted_at')
+            ->whereNull('menus.deleted_at')
             ->orderBy('menus.order', 'asc')
             ->get()
             ->toArray();
