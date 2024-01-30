@@ -39,7 +39,7 @@ class MenuController extends Controller
         $this->authAction('read');
         if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $data = Menu::all();
+        $data = Menu::with('parent')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()

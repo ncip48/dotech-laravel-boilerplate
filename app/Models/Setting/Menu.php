@@ -24,4 +24,9 @@ class Menu extends Model
         'icon',
         'is_active',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Setting\Menu', 'parent_id', 'menu_id');
+    }
 }

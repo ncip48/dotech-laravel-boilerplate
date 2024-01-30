@@ -61,6 +61,9 @@
                                                 <th>#</th>
                                                 <th>Code</th>
                                                 <th>Name</th>
+                                                <th>URL</th>
+                                                <th>Order</th>
+                                                <th>Parent</th>
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
@@ -126,6 +129,30 @@
                         "bSearchable": true,
                     },
                     {
+                        "mData": "url",
+                        "sClass": "",
+                        "sWidth": "10%",
+                        "bSortable": false,
+                        "bSearchable": true,
+                    },
+                    {
+                        "mData": "order",
+                        "sClass": "",
+                        "sWidth": "10%",
+                        "bSortable": false,
+                        "bSearchable": true,
+                    },
+                    {
+                        "mData": "parent",
+                        "sClass": "",
+                        "sWidth": "10%",
+                        "bSortable": false,
+                        "bSearchable": true,
+                        "mRender": function(data, type, row, meta) {
+                            return data == null ? '-' : data.name;
+                        }
+                    },
+                    {
                         "mData": "is_active",
                         "sClass": "text-center",
                         "sWidth": "10%",
@@ -137,7 +164,7 @@
                         }
                     },
                     {
-                        "mData": "group_id",
+                        "mData": "menu_id",
                         "sClass": "text-center pr-2",
                         "sWidth": "10%",
                         "bSortable": false,
