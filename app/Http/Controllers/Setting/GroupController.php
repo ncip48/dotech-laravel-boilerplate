@@ -147,14 +147,6 @@ class GroupController extends Controller
 
         $menu = GroupMenu::getMenuMap($data->group_id);
 
-        $data = [
-            "Creator" => $data->user->name ?? "-",
-            "Slug" => $data->slug ?? "-",
-            "Title" => $data->title ?? "-",
-            "Content" => $data->content ?? "-",
-            "Image" => $data->image ?? "-",
-        ];
-
         return view($this->view . 'menu')->with('title', $this->title)
             ->with('url', $this->url . '/' . $id . '/menu')
             ->with('title', 'Access ' . $this->title)

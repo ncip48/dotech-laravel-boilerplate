@@ -4,7 +4,7 @@
     <div id="modal-group" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{!! $title . ' - Level <span class="badge badge-primary">' . '$data->name' . '</span>' !!}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{!! $title . ' - ' . $data->name !!}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,7 +14,7 @@
                 <table class="table table-striped table-hover table-full-width table-sm" id="table_group_menu">
                     <thead>
                         <tr>
-                            <th class="col-md-5" colspan="2">Menu</th>
+                            <th class="col-md-5" colspan="2"></th>
                             <th class="col-md-1 text-center">Retrive</th>
                             <th class="col-md-1 text-center">Create</th>
                             <th class="col-md-1 text-center">Update</th>

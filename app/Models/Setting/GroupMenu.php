@@ -51,7 +51,7 @@ class GroupMenu extends Model
         $data = $map->get();
 
         foreach ($data as $d) {
-            if (empty($d->url)) {
+            if (empty($d->level == 2)) {
                 $tag .= '<tr><td><span class="ml-' . $d->level . ' font-weight-bold">' . $d->menu_name . '</span></td>' .
                     '<td class="text-center pr-2">' . strtolower($d->menu_scope) . '</td>' .
                     '<td class="text-center pr-2"><div class="icheck-success d-inline"><input class="r_act" name="' . $d->menu_id . '[read]" value="1" type="checkbox" id="r_' . $d->menu_id . '"  ' . (($d->read) ? 'checked' : '') . '><label for="r_' . $d->menu_id . '"></label></div></td>' .
