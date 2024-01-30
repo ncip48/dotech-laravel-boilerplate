@@ -142,7 +142,7 @@ class GroupController extends Controller
             ['url' => '#', 'title' => 'Detail'],
         ];
 
-        $data = News::with('user')->findOrFail($id);
+        $data = Group::with('user')->findOrFail($id);
 
         $data = [
             "Creator" => $data->user->name ?? "-",
@@ -164,7 +164,7 @@ class GroupController extends Controller
         $this->authAction('delete');
         if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $data = News::find($id);
+        $data = Group::find($id);
 
         return (!$data) ? $this->showError("No data found with id: $id") :
             view('layouts.modal_delete')
@@ -173,7 +173,7 @@ class GroupController extends Controller
             ->with('id', $id)
             ->with('data', $data)
             ->with('action', 'delete')
-            ->with('info', ["Title" => "$data->title"]);
+            ->with('info', ["Code" => "$data->code", "Name" => "$data->name"]);
     }
 
     public function destroy($id)
@@ -181,7 +181,7 @@ class GroupController extends Controller
         $this->authAction('delete');
         if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $res = News::destroy($id);
+        $res = Group::destroy($id);
 
         return (!$res) ? $this->showError("No data found with id: $id") :
             $this->setResponse(true, $this->deleteSuccessMessage, $res);
