@@ -143,15 +143,22 @@
                         "bSortable": false,
                         "bSearchable": false,
                         "mRender": function(data, type, row, meta) {
-                            return ''
+                            var actions = '';
+
+                            actions +=
+                                `<a href="#" data-block="body" data-url="{{ $url }}/${data}" class="ajax_modal btn btn-xs btn-info tooltips text-light" data-placement="left" data-original-title="View Menu" ><i class="fa fa-th"></i></a> `;
+
                             @if ($allowAccess->update)
-                                +
-                                `<a href="#" data-block="body" data-url="{{ $url }}/${data}/edit" class="ajax_modal btn btn-xs btn-warning tooltips text-secondary" data-placement="left" data-original-title="Edit Data" ><i class="fa fa-edit"></i></a> `
+                                actions +=
+                                    `<a href="#" data-block="body" data-url="{{ $url }}/${data}/edit" class="ajax_modal btn btn-xs btn-warning tooltips text-secondary" data-placement="left" data-original-title="Edit Data" ><i class="fa fa-edit"></i></a> `;
                             @endif
+
                             @if ($allowAccess->delete)
-                                +
-                                `<a href="#" data-block="body" data-url="{{ $url }}/${data}/delete" class="ajax_modal btn btn-xs btn-danger tooltips text-light" data-placement="left" data-original-title="Delete Data" ><i class="fa fa-trash"></i></a> `
-                            @endif ;
+                                actions +=
+                                    `<a href="#" data-block="body" data-url="{{ $url }}/${data}/delete" class="ajax_modal btn btn-xs btn-danger tooltips text-light" data-placement="left" data-original-title="Delete Data" ><i class="fa fa-trash"></i></a> `;
+                            @endif
+
+                            return actions;
                         }
                     }
                 ],

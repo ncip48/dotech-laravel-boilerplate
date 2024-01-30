@@ -26,12 +26,16 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     //boilerplate routes
 
+    //group
     Route::resource('setting/group', App\Http\Controllers\Setting\GroupController::class);
     Route::post('setting/group/list', [App\Http\Controllers\Setting\GroupController::class, 'list'])->name('setting.group.list');
     Route::get('setting/group/{id}/delete', [App\Http\Controllers\Setting\GroupController::class, 'confirm'])->name('setting.group.confirm');
+    Route::put('setting/group/{id}/menu', [App\Http\Controllers\Setting\GroupController::class, 'menu_save'])->name('setting.group.menu.save');
 
     //menu
     Route::resource('setting/menu', App\Http\Controllers\Setting\MenuController::class);
+    Route::post('setting/menu/list', [App\Http\Controllers\Setting\MenuController::class, 'list'])->name('setting.menu.list');
+    Route::get('setting/menu/{id}/delete', [App\Http\Controllers\Setting\MenuController::class, 'confirm'])->name('setting.menu.confirm');
 
     //user
     Route::resource('master/user', App\Http\Controllers\Master\UserController::class)->parameter('user', 'id');

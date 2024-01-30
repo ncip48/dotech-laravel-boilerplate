@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting\Group;
+use App\Models\Setting\GroupMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -142,7 +143,9 @@ class GroupController extends Controller
             ['url' => '#', 'title' => 'Detail'],
         ];
 
-        $data = Group::with('user')->findOrFail($id);
+        $data = Group::find($id);
+
+        $menu = GroupMenu::getMenuMap($data->group_id);
 
         $data = [
             "Creator" => $data->user->name ?? "-",
@@ -152,11 +155,29 @@ class GroupController extends Controller
             "Image" => $data->image ?? "-",
         ];
 
-        return view($this->view . 'detail')->with('title', $this->title)
-            ->with('url', $this->url)
-            ->with('title', 'Detail ' . $this->title)
+        return view($this->view . 'menu')->with('title', $this->title)
+            ->with('url', $this->url . '/' . $id . '/menu')
+            ->with('title', 'Access ' . $this->title)
             ->with('breadcrumbs', $breadcrumbs)
-            ->with('data', $data);
+            ->with('data', $data)
+            ->with('menu', $menu);
+    }
+
+    public function menu_save(Request $request, $id)
+    {
+        $this->authAction('update', 'json');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        // cek untuk Insert/Update/Delete harus via AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+
+            $res = GroupMenu::setGroupMenu($id, $request);
+
+            return (!$res) ? $this->setResponse(false, $this->updateFailedMessage) :
+                $this->setResponse(true, $this->updateSuccessMessage, $res);
+        }
+
+        return redirect('/');
     }
 
     public function confirm($id)
