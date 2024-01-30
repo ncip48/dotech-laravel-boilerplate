@@ -27,6 +27,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     //boilerplate routes
 
     Route::resource('setting/group', App\Http\Controllers\Setting\GroupController::class);
+    Route::post('setting/group/list', [App\Http\Controllers\Setting\GroupController::class, 'list'])->name('setting.group.list');
+    Route::get('setting/group/{id}/delete', [App\Http\Controllers\Setting\GroupController::class, 'confirm'])->name('setting.group.confirm');
+
+    //menu
     Route::resource('setting/menu', App\Http\Controllers\Setting\MenuController::class);
 
     //user
