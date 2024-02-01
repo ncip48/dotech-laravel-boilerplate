@@ -27,7 +27,7 @@ class GroupMenu extends Model
     public static function getMenuMap($group_id, $tag = '', $parent_id = null)
     {
         $map = DB::table('menus AS m')
-            ->selectRaw('m.menu_id, m.scope as menu_scope, m.url, m.name as menu_name, m.level, m.order, (SELECT COUNT(*) FROM menus mm WHERE mm.parent_id = m.menu_id) as sub, gm.create, gm.read, gm.update, gm.delete')
+            ->selectRaw('m.menu_id,m.url, m.name as menu_name, m.level, m.order, (SELECT COUNT(*) FROM menus mm WHERE mm.parent_id = m.menu_id) as sub, gm.create, gm.read, gm.update, gm.delete')
             ->leftJoin('group_menus AS gm', function ($join) use ($group_id) {
                 $join->on('m.menu_id', '=', 'gm.menu_id')
                     ->where('gm.group_id', '=', $group_id)
@@ -53,7 +53,7 @@ class GroupMenu extends Model
         foreach ($data as $d) {
             if (empty($d->level == 2)) {
                 $tag .= '<tr><td><span class="ml-' . $d->level . ' font-weight-bold">' . $d->menu_name . '</span></td>' .
-                    '<td class="text-center pr-2">' . strtolower($d->menu_scope) . '</td>' .
+                    // '<td class="text-center pr-2">' . strtolower($d->menu_scope) . '</td>' .
                     '<td class="text-center pr-2"><div class="icheck-success d-inline"><input class="r_act" name="' . $d->menu_id . '[read]" value="1" type="checkbox" id="r_' . $d->menu_id . '"  ' . (($d->read) ? 'checked' : '') . '><label for="r_' . $d->menu_id . '"></label></div></td>' .
                     '<td class="text-center pr-2">-</td>' .
                     '<td class="text-center pr-2">-</td>' .
@@ -62,7 +62,7 @@ class GroupMenu extends Model
                     '</tr>';
             } else {
                 $tag .= '<tr><td><span class="ml-' . $d->level . '">' . $d->menu_name . '</span></td>' .
-                    '<td class="text-center pr-2">' . strtolower($d->menu_scope) . '</td>' .
+                    // '<td class="text-center pr-2">' . strtolower($d->menu_scope) . '</td>' .
                     '<td class="text-center pr-2"><div class="icheck-success d-inline"><input class="r_act" name="' . $d->menu_id . '[read]" value="1" type="checkbox" id="r_' . $d->menu_id . '"  ' . (($d->read) ? 'checked' : '') . '><label for="r_' . $d->menu_id . '"></label></div></td>' .
                     '<td class="text-center pr-2"><div class="icheck-success d-inline"><input class="c_act" name="' . $d->menu_id . '[create]" value="1" type="checkbox" id="c_' . $d->menu_id . '"  ' . (($d->create) ? 'checked' : '') . '><label for="c_' . $d->menu_id . '"></label></div></td>' .
                     '<td class="text-center pr-2"><div class="icheck-success d-inline"><input class="u_act" name="' . $d->menu_id . '[update]" value="1" type="checkbox" id="u_' . $d->menu_id . '"  ' . (($d->update) ? 'checked' : '') . '><label for="u_' . $d->menu_id . '"></label></div></td>' .

@@ -14,7 +14,7 @@
                 <table class="table table-striped table-hover table-full-width table-sm" id="table_group_menu">
                     <thead>
                         <tr>
-                            <th class="col-md-5" colspan="2"></th>
+                            <th class="col-md-5" colspan="1"></th>
                             <th class="col-md-1 text-center">Retrive</th>
                             <th class="col-md-1 text-center">Create</th>
                             <th class="col-md-1 text-center">Update</th>

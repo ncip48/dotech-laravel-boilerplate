@@ -3,7 +3,7 @@
     $is_edit = isset($data);
 @endphp
 
-<form method="post" action="{{ $url }}" role="form" class="form-horizontal" id="form-main" autocomplete="off">
+<form method="post" action="{{ $url }}" role="form" class="form-horizontal" id="main-form" autocomplete="off">
     @csrf
     {!! $is_edit ? method_field('PUT') : '' !!}
     <div id="modal-user" class="modal-dialog modal-md" role="document">
@@ -46,25 +46,20 @@
                     </div>
                 </div>
                 <div class="form-group row mb-1">
-                    <label for="level" class="col-sm-2 col-form-label">Level</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" id="level" placeholder="Level"
-                            name="level" value="{{ isset($data->level) ? $data->level : '' }}" />
-                    </div>
                     <label for="order" class="col-sm-2 col-form-label">Order</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" id="order" placeholder="Order"
                             name="order" value="{{ isset($data->order) ? $data->order : '' }}" />
                     </div>
-                </div>
-                <div class="form-group row mb-1">
                     <label for="tag" class="col-sm-2 col-form-label">Tag</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" id="tag" placeholder="Tag"
                             name="tag" value="{{ isset($data->tag) ? $data->tag : '' }}" />
                     </div>
+                </div>
+                <div class="form-group row mb-1">
                     <label for="icon" class="col-sm-2 col-form-label">Icon</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-10">
                         {{-- <button type="button" id="GetIconPicker" data-iconpicker-input="input#icon"
                             data-iconpicker-preview="i#IconPreview">Select Icon</button>
                         <i id="IconPreview" class="fa fa-fw fa-{{ isset($data->icon) ? $data->icon : '' }}"></i> --}}

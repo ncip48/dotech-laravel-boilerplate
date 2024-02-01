@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class MenuController extends Controller
@@ -71,5 +72,40 @@ class MenuController extends Controller
             ->with('url', $this->url)
             ->with('menu', $menu)
             ->with('routes', $routes);
+    }
+
+    public function store(Request $request)
+    {
+        $this->authAction('create');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $validator = Validator::make($request->all(), [
+            'code' => 'required|unique:menus,code',
+            'name' => 'required',
+            'url' => 'required',
+            'order' => 'required',
+            'tag' => 'required',
+            'icon' => 'required',
+            'is_active' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = [];
+            foreach ($validator->errors()->all() as $error) {
+                $errors[] = $error;
+            }
+            return $this->setResponse(false, "Validation Error", $errors);
+        }
+
+        $data = $request->all();
+        $data['level'] = $request->parent_id == null ? 1 : 2;
+
+        $news = Menu::create($data);
+
+        if ($news) {
+            return $this->setResponse(true, $this->saveSuccessMessage);
+        } else {
+            return $this->setResponse(false, $this->saveFailedMessage);
+        }
     }
 }
