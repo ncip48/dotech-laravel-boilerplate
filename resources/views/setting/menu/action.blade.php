@@ -38,7 +38,7 @@
                             style="width: 100%;">
                             <option value="" disabled selected>- Pilih -</option>
                             @foreach ($routes as $route)
-                                <option value="{{ $route->uri }}">
+                                <option value="{{ $route->uri }}" @if (isset($data->url) && $data->url == $route->uri) selected @endif>
                                     {{ $route->uri }}
                                 </option>
                             @endforeach
@@ -74,7 +74,8 @@
                             style="width: 100%;">
                             <option value="">- Pilih -</option>
                             @foreach ($menu as $p)
-                                <option value="{{ $p->menu_id }}">{{ $p->name }}
+                                <option value="{{ $p->menu_id }}" @if (isset($data->parent_id) && $data->parent_id == $p->menu_id) selected @endif>
+                                    {{ $p->name }}
                                     ({{ $p->code }})
                                 </option>
                             @endforeach

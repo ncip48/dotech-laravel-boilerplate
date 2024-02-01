@@ -108,4 +108,68 @@ class MenuController extends Controller
             return $this->setResponse(false, $this->saveFailedMessage);
         }
     }
+
+    public function edit($id)
+    {
+        $this->authAction('update');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $menu = Menu::where('level', 1)->get();
+
+        $r = Route::getRoutes();
+
+        $routes = [];
+        foreach ($r as $route) {
+            $name = $route->getName();
+            $uri = $route->uri;
+            $std = new \stdClass();
+            $std->name = $name;
+            $std->uri = $uri;
+            $routes[] = $std;
+        }
+
+        $data = Menu::find($id);
+
+        return view($this->view . 'action')
+            ->with('title', 'Edit ' . $this->title)
+            ->with('url', $this->url . '/' . $id)
+            ->with('menu', $menu)
+            ->with('routes', $routes)
+            ->with('data', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->authAction('update');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $validator = Validator::make($request->all(), [
+            'code' => 'required|unique:menus,code,' . $id . ',menu_id',
+            'name' => 'required',
+            'url' => 'required',
+            'order' => 'required',
+            'tag' => 'required',
+            'icon' => 'required',
+            'is_active' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = [];
+            foreach ($validator->errors()->all() as $error) {
+                $errors[] = $error;
+            }
+            return $this->setResponse(false, "Validation Error", $errors);
+        }
+
+        $data = $request->all();
+        $data['level'] = $request->parent_id == null ? 1 : 2;
+
+        $news = Menu::find($id)->update($data);
+
+        if ($news) {
+            return $this->setResponse(true, $this->updateSuccessMessage);
+        } else {
+            return $this->setResponse(false, $this->updateFailedMessage);
+        }
+    }
 }
