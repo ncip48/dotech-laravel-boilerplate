@@ -172,4 +172,32 @@ class MenuController extends Controller
             return $this->setResponse(false, $this->updateFailedMessage);
         }
     }
+
+    public function confirm($id)
+    {
+        $this->authAction('delete');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $data = Menu::find($id);
+
+        return (!$data) ? $this->showError("No data found with id: $id") :
+            view('layouts.modal_delete')
+            ->with('url', $this->url . '/' . $id)
+            ->with('title', 'Delete ' . $this->title)
+            ->with('id', $id)
+            ->with('data', $data)
+            ->with('action', 'delete')
+            ->with('info', ["Code" => "$data->code", "Name" => "$data->name", "Url" => "$data->url", "Order" => "$data->order", "Tag" => "$data->tag", "Icon" => "$data->icon"]);
+    }
+
+    public function destroy($id)
+    {
+        $this->authAction('delete');
+        if ($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $res = Menu::destroy($id);
+
+        return (!$res) ? $this->showError("No data found with id: $id") :
+            $this->setResponse(true, $this->deleteSuccessMessage, $res);
+    }
 }

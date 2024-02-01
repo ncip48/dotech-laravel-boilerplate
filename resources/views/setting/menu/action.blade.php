@@ -36,7 +36,7 @@
                     <div class="col-sm-10">
                         <select id="url" name="url" class="form-control form-control-sm parent"
                             style="width: 100%;">
-                            <option value="" disabled selected>- Pilih -</option>
+                            <option value="" disabled selected>- Select one -</option>
                             @foreach ($routes as $route)
                                 <option value="{{ $route->uri }}" @if (isset($data->url) && $data->url == $route->uri) selected @endif>
                                     {{ $route->uri }}
@@ -72,7 +72,7 @@
                     <div class="col-sm-10">
                         <select id="parent_id" name="parent_id" class="form-control form-control-sm parent"
                             style="width: 100%;">
-                            <option value="">- Pilih -</option>
+                            <option value="">- Select one -</option>
                             @foreach ($menu as $p)
                                 <option value="{{ $p->menu_id }}" @if (isset($data->parent_id) && $data->parent_id == $p->menu_id) selected @endif>
                                     {{ $p->name }}
@@ -89,12 +89,12 @@
                         <div class="icheck-primary d-inline mr-2">
                             <input type="radio" id="radioPrimary1" name="is_active" value="1"
                                 {{ isset($data->is_active) ? ($data->is_active == 1 ? 'checked' : '') : 'checked' }}>
-                            <label for="radioPrimary1">Aktif </label>
+                            <label for="radioPrimary1">Active</label>
                         </div>
                         <div class="icheck-danger d-inline">
                             <input type="radio" id="radioPrimary2" name="is_active" value="0"
                                 {{ isset($data->is_active) ? ($data->is_active == 0 ? 'checked' : '') : '' }}>
-                            <label for="radioPrimary2">Non-aktif</label>
+                            <label for="radioPrimary2">Inactive</label>
                         </div>
                     </div>
                 </div>
