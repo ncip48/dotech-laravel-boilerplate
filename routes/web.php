@@ -22,7 +22,9 @@ Auth::routes();
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('profile', [App\Http\Controllers\DashboardController::class, 'index'])->name('profile');
+    Route::get('profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::put('profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('password', [App\Http\Controllers\ProfileController::class, 'password'])->name('password.update');
 
     //boilerplate routes
 
@@ -51,9 +53,12 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('news/list', [App\Http\Controllers\NewsController::class, 'list'])->name('news.list');
 });
 
-
-//run artisan command: php artisan optimize
 Route::get('/optimize', function () {
-    Artisan::call('optimize:clear');
+    Artisan::call('optimize');
     return "Optimized";
+});
+
+Route::get('/optimize-clear', function () {
+    Artisan::call('optimize:clear');
+    return "Config Cache";
 });
