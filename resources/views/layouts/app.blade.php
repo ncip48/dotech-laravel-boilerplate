@@ -401,7 +401,10 @@
                     if (data.success) {
                         resetForm('#form-master');
                         toastr.success(data.message);
-                        dataMaster.draw(false);
+                        // dataMaster.draw(false);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
                     } else {
                         getError(data)
                     }
