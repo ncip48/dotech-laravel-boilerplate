@@ -132,11 +132,11 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        const url = "{{ url('/') }}"
+                        // const url = "{{ url('/') }}"
                         if (response.success) {
                             toastr.success(response.message);
                             setTimeout(() => {
-                                window.location.href = url + response.data.redirect;
+                                window.location.href = response.data.redirect;
                             }, 1000);
                         } else {
                             toastr.error(response.message);

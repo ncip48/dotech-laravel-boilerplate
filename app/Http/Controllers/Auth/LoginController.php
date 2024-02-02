@@ -61,9 +61,12 @@ class LoginController extends Controller
                 return $this->setResponse(false, 'User is not active', null);
             }
 
+            //redirect intended
+            $redirect = $request->session()->pull('url.intended', $this->redirectTo);
+
             $data = [
                 'user' => $user,
-                'redirect' => $this->redirectTo
+                'redirect' => $redirect
             ];
 
             return $this->setResponse(true, 'Login success', $data);

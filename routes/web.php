@@ -25,6 +25,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::put('profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::put('password', [App\Http\Controllers\ProfileController::class, 'password'])->name('password.update');
+    Route::put('avatar', [App\Http\Controllers\ProfileController::class, 'avatar'])->name('avatar.update');
 
     //boilerplate routes
 

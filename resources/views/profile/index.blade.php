@@ -78,6 +78,24 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
+                                <h3 class="card-title">Avatar</h3>
+                            </div>
+                            <form id="main-form" action="{{ route('avatar.update') }}" method="POST" autocomplete="off">
+                                @csrf
+                                {!! method_field('PUT') !!}
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="avatar">New Avatar</label>
+                                        <input type="file" class="form-control" id="avatar" name="avatar">
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
                                 <h3 class="card-title">Password</h3>
                             </div>
                             <form id="main-form" action="{{ route('password.update') }}" method="POST" autocomplete="off">
@@ -93,7 +111,7 @@
                                         <input type="password" class="form-control" id="password" name="password">
                                     </div>
                                     <div class="form-group">
-                                        <label for="password_confirmation">Confirm Password</label>
+                                        <label for="password_confirmation">Confirm New Password</label>
                                         <input type="password" class="form-control" id="password_confirmation"
                                             name="password_confirmation">
                                     </div>
