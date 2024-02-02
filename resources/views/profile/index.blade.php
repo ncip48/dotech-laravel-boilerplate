@@ -71,7 +71,7 @@
                                 </div>
 
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button id="btn-save" type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button id="btn-save" type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -132,7 +132,7 @@
                                 </div>
 
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button id="btn-save" type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>

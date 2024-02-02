@@ -330,14 +330,14 @@
             }
         }
 
-        function showLoadingButton() {
-            $('#btn-save').attr('disabled', true);
-            $('#btn-save').html('<i class="fa fa-spinner fa-spin"></i>');
+        function showLoadingButton(btn) {
+            btn.attr('disabled', true);
+            btn.html('<i class="fa fa-spinner fa-spin"></i>');
         }
 
-        function hideLoadingButton() {
-            $('#btn-save').attr('disabled', false);
-            $('#btn-save').html('Save');
+        function hideLoadingButton(btn) {
+            btn.attr('disabled', false);
+            btn.html('Save');
         }
 
         //#GetIconPicker on click
@@ -351,6 +351,7 @@
             var form = $(this);
             //get the data-reload="true" attribute
             var reload = form.data('reload');
+            var btn_save = $(this).find('#btn-save');
             var url = form.attr('action');
             var method = form.attr('method');
             var data = form.serialize();
@@ -361,12 +362,12 @@
                 data: data,
                 dataType: 'json',
                 beforeSend: function() {
-                    showLoadingButton();
+                    showLoadingButton(btn_save);
                 },
                 success: function(data) {
                     // unblockUI(form);
                     // setFormMessage('.form-message', data);
-                    hideLoadingButton();
+                    hideLoadingButton(btn_save);
                     if (data.success) {
                         resetForm('#form-master');
                         toastr.success(data.message);
@@ -388,6 +389,7 @@
         $(document).on('submit', '#main-form-input', function(e) {
             e.preventDefault();
             var form = $(this);
+            var btn_save = $(this).find('#btn-save');
             var url = form.attr('action');
             var method = form.attr('method');
             let formData = new FormData($('#main-form-input')[0]);
@@ -400,12 +402,12 @@
                 processData: false,
                 cache: false,
                 beforeSend: function() {
-                    showLoadingButton();
+                    showLoadingButton(btn_save);
                 },
                 success: function(data) {
                     // unblockUI(form);
                     // setFormMessage('.form-message', data);
-                    hideLoadingButton();
+                    hideLoadingButton(btn_save);
                     if (data.success) {
                         resetForm('#form-master');
                         toastr.success(data.message);
