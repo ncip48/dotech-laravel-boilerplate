@@ -43,7 +43,8 @@
                             <div class="card-header">
                                 <h3 class="card-title">Profile</h3>
                             </div>
-                            <form id="main-form" action="{{ route('profile.update') }}" method="POST" autocomplete="off">
+                            <form id="main-form" action="{{ route('profile.update') }}" method="POST" autocomplete="off"
+                                data-reload=true>
                                 @csrf
                                 {!! method_field('PUT') !!}
                                 <div class="card-body">

@@ -349,6 +349,8 @@
         $(document).on('submit', '#main-form', function(e) {
             e.preventDefault();
             var form = $(this);
+            //get the data-reload="true" attribute
+            var reload = form.data('reload');
             var url = form.attr('action');
             var method = form.attr('method');
             var data = form.serialize();
@@ -368,7 +370,13 @@
                     if (data.success) {
                         resetForm('#form-master');
                         toastr.success(data.message);
-                        dataMaster.draw(false);
+                        if (reload) {
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            dataMaster.draw(false);
+                        }
                     } else {
                         getError(data)
                     }
