@@ -102,12 +102,19 @@ class ProfileController extends Controller
             return $this->setResponse(false, "Validation Error", $errors);
         }
 
+        //remove old avatar
+        $oldAvatar = public_path('assets/img/avatar/') . $user->avatar;
+        if (file_exists($oldAvatar)) {
+            unlink($oldAvatar);
+        }
+
         $avatar = $request->file('avatar');
         $random = rand(1, 100000);
         $avatarName = $random . '.' . $avatar->getClientOriginalExtension();
         $avatar->move(public_path('assets/img/avatar'), $avatarName);
 
         $user->avatar = $avatarName;
+
 
         $user->save();
 
