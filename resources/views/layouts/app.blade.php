@@ -97,7 +97,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
                     <div class="image">
-                        <img src="{{ asset('dist/img/user.png') }}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('assets/img/default.png') }}" class="img-circle" alt="User Image">
                     </div>
                     <div class="info align-text-center" style="text-wrap:wrap">
                         <a class="d-block">{{ Auth::user()->name }}

@@ -84,9 +84,21 @@
                                 @csrf
                                 {!! method_field('PUT') !!}
                                 <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="avatar">New Avatar</label>
-                                        <input type="file" class="form-control" id="avatar" name="avatar">
+                                    <div class="d-flex align-items-center">
+                                        <img class="profile-user-img img-fluid img-circle m-0 mr-5"
+                                            src="{{ $user->avatar ? asset('assets/img/avatar/' . $user->avatar) : asset('assets/img/default.png') }}"
+                                            alt="User profile picture">
+                                        <div class="form-group w-100">
+                                            <label for="avatar">File input</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="avatar"
+                                                        name="avatar">
+                                                    <label class="custom-file-label" for="avatar">Choose
+                                                        file</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
