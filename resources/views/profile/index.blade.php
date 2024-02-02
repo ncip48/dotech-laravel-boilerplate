@@ -80,22 +80,23 @@
                             <div class="card-header">
                                 <h3 class="card-title">Avatar</h3>
                             </div>
-                            <form id="main-form" action="{{ route('avatar.update') }}" method="POST" autocomplete="off">
+                            <form id="main-form-input" action="{{ route('avatar.update') }}" method="POST"
+                                autocomplete="off" enctype="multipart/form-data">
                                 @csrf
                                 {!! method_field('PUT') !!}
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <img class="profile-user-img img-fluid img-circle m-0 mr-5"
                                             src="{{ $user->avatar ? asset('assets/img/avatar/' . $user->avatar) : asset('assets/img/default.png') }}"
-                                            alt="User profile picture">
+                                            alt="User profile picture" style="height: 90px;width:90px">
                                         <div class="form-group w-100">
-                                            <label for="avatar">File input</label>
+                                            <label for="avatar">New Avatar</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" id="avatar"
                                                         name="avatar">
                                                     <label class="custom-file-label" for="avatar">Choose
-                                                        file</label>
+                                                        avatar</label>
                                                 </div>
                                             </div>
                                         </div>

@@ -85,4 +85,32 @@ class ProfileController extends Controller
 
         return $this->setResponse(true, "Password Updated");
     }
+
+    public function avatar(Request $request)
+    {
+        $user = User::find(auth()->user()->user_id);
+
+        $validator = Validator::make($request->all(), [
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = [];
+            foreach ($validator->errors()->all() as $error) {
+                $errors[] = $error;
+            }
+            return $this->setResponse(false, "Validation Error", $errors);
+        }
+
+        $avatar = $request->file('avatar');
+        $random = rand(1, 100000);
+        $avatarName = $random . '.' . $avatar->getClientOriginalExtension();
+        $avatar->move(public_path('assets/img/avatar'), $avatarName);
+
+        $user->avatar = $avatarName;
+
+        $user->save();
+
+        return $this->setResponse(true, "Avatar Updated");
+    }
 }

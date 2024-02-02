@@ -97,7 +97,8 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
                     <div class="image">
-                        <img src="{{ asset('assets/img/default.png') }}" class="img-circle" alt="User Image">
+                        <img src="{{ Auth::user()->avatar ? asset('assets/img/avatar/' . Auth::user()->avatar) : asset('assets/img/default.png') }}"
+                            class="img-circle" alt="User Image" style="height: 2.1rem">
                     </div>
                     <div class="info align-text-center" style="text-wrap:wrap">
                         <a class="d-block">{{ Auth::user()->name }}
@@ -154,7 +155,8 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; {{ now()->year }} <a href="https://dotech.cfd/">Dotech Digital</a></strong>
+            <strong>Copyright &copy; {{ now()->year }} <a href="https://dotech.cfd/">PT Dotech Digital
+                    Solution</a></strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 Template by AdminLTE <b>Version</b> 3.2.0
@@ -356,6 +358,39 @@
                 method: method,
                 data: data,
                 dataType: 'json',
+                beforeSend: function() {
+                    showLoadingButton();
+                },
+                success: function(data) {
+                    // unblockUI(form);
+                    // setFormMessage('.form-message', data);
+                    hideLoadingButton();
+                    if (data.success) {
+                        resetForm('#form-master');
+                        toastr.success(data.message);
+                        dataMaster.draw(false);
+                    } else {
+                        getError(data)
+                    }
+                    closeModal($modal, data);
+                }
+            });
+        });
+
+        $(document).on('submit', '#main-form-input', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            var method = form.attr('method');
+            let formData = new FormData($('#main-form-input')[0]);
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
                 beforeSend: function() {
                     showLoadingButton();
                 },
