@@ -36,7 +36,7 @@
                     <div class="col-sm-10">
                         <select id="url" name="url" class="form-control form-control-sm parent"
                             style="width: 100%;">
-                            <option value="" disabled selected>- Select one -</option>
+                            <option value="" selected>- Select one -</option>
                             @foreach ($routes as $route)
                                 <option value="{{ $route->uri }}" @if (isset($data->url) && $data->url == $route->uri) selected @endif>
                                     {{ $route->uri }}
