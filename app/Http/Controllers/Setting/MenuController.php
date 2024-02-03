@@ -82,7 +82,7 @@ class MenuController extends Controller
         $validator = Validator::make($request->all(), [
             'code' => 'required|unique:menus,code',
             'name' => 'required',
-            'url' => 'required',
+            'url' => 'string',
             'order' => 'required',
             'tag' => 'required',
             'icon' => 'required',
@@ -146,7 +146,7 @@ class MenuController extends Controller
         $validator = Validator::make($request->all(), [
             'code' => 'required|unique:menus,code,' . $id . ',menu_id',
             'name' => 'required',
-            'url' => 'required',
+            'url' => 'string',
             'order' => 'required',
             'tag' => 'required',
             'icon' => 'required',
