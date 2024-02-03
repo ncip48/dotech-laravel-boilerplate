@@ -47,6 +47,7 @@ class Controller extends BaseController
             ->where('group_menus.group_id', $group_id)
             ->where('menus.is_active', 1)
             ->whereNull('menus.deleted_at')
+            ->whereNull('group_menus.deleted_at')
             ->orderBy('menus.order', 'asc');
 
         $data = [];
