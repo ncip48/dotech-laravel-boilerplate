@@ -386,6 +386,50 @@
             });
         });
 
+        $(document).on('submit', '#main-form-file', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            //get the data-reload="true" attribute
+            var reload = form.data('reload');
+            var btn_save = $(this).find('#btn-save');
+            var url = form.attr('action');
+            var method = form.attr('method');
+            var formData = new FormData(this); // Create FormData object from the form
+
+            // If you want to append additional data to FormData dynamically
+            // formData.append('key', 'value');
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: formData, // Pass formData directly
+                processData: false, // Important: Don't process the data
+                contentType: false, // Important: Don't set contentType
+                beforeSend: function() {
+                    showLoadingButton(btn_save);
+                },
+                success: function(data) {
+                    // unblockUI(form);
+                    // setFormMessage('.form-message', data);
+                    hideLoadingButton(btn_save);
+                    if (data.success) {
+                        resetForm('#form-master');
+                        toastr.success(data.message);
+                        if (reload) {
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            dataMaster.draw(false);
+                        }
+                    } else {
+                        getError(data);
+                    }
+                    closeModal($modal, data);
+                }
+            });
+        });
+
         $(document).on('submit', '#main-form-input', function(e) {
             e.preventDefault();
             var form = $(this);
