@@ -92,6 +92,8 @@ class Controller extends BaseController
                 case 'json':
                     return $this->setResponse(false, 'You are not authorized to perform this action.');
                     break;
+                case 'redirect':
+                    abort(403);
                 default:
                     return $this->setResponse(false, 'You are not authorized to perform this action.');
                     break;
