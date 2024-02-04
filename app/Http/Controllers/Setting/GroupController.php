@@ -21,7 +21,7 @@ class GroupController extends Controller
 
     public function index()
     {
-        $this->authAction('read');
+        $this->authAction('read', 'redirect');
         $this->authCheckDetailAccess();
 
         $breadcrumbs = [
